@@ -1,0 +1,34 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-content {
+  display: flex;
+  flex: 1;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  padding-top: 76px; /* Header height + some spacing */
+}
+
+/* Media queries for responsive layout */
+@media (max-width: 1200px) {
+  .main-content {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    flex-direction: column;
+  }
+  
+  .main-content {
+    padding: 12px;
+  }
+} 

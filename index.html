@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}QuantumGaze - Gesture-Controlled Video Platform{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-6">
+            <h1 class="display-4 mb-4">What do you want to watch?</h1>
+            <p class="lead mb-4">Search, play, and control videos with hand gestures for a futuristic viewing experience</p>
+            <div class="search-box mb-4">
+                <form class="d-flex">
+                    <input class="form-control form-control-lg bg-dark text-light me-2" type="search" placeholder="Search movies, shows, games...">
+                    <button class="btn btn-primary btn-lg" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="gesture-demo">
+                <video id="gesturePreview" class="w-100 rounded-3 shadow" autoplay muted></video>
+                <div class="gesture-overlay text-center">
+                    <button class="btn btn-lg btn-primary mt-3" onclick="enableGestures()">
+                        Enable Gestures
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="mb-4">My Favorites</h2>
+            <div class="favorites-container" id="favoritesSection">
+                <p class="text-muted">No favorites yet. Add some videos to your favorites!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="mb-4">Featured Games</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card bg-dark h-100">
+                        <div class="card-body text-center">
+                            <div class="game-icon mb-3">
+                                <img src="{{ url_for('static', filename='img/games/pong.png') }}" alt="Gesture Pong">
+                            </div>
+                            <h5 class="card-title">Gesture Pong</h5>
+                            <p class="card-text">Classic pong game controlled with hand gestures. Move your hand up and down to control the paddle.</p>
+                            <a href="/games/pong" class="btn btn-primary">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-dark h-100">
+                        <div class="card-body text-center">
+                            <div class="game-icon mb-3">
+                                <img src="{{ url_for('static', filename='img/games/space.png') }}" alt="Space Defender">
+                            </div>
+                            <h5 class="card-title">Space Defender</h5>
+                            <p class="card-text">Defend your spaceship against incoming asteroids using hand gestures to move and shoot.</p>
+                            <a href="/games/space" class="btn btn-primary">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-dark h-100">
+                        <div class="card-body text-center">
+                            <div class="game-icon mb-3">
+                                <img src="{{ url_for('static', filename='img/games/racer.png') }}" alt="Gesture Racer">
+                            </div>
+                            <h5 class="card-title">Gesture Racer</h5>
+                            <p class="card-text">Race against time using hand gestures to steer your car through challenging tracks.</p>
+                            <a href="/games/racer" class="btn btn-primary">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619/face_mesh.js"></script>
+<script src="{{ url_for('static', filename='js/gesture-controller.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize gesture preview
+    const video = document.getElementById('gesturePreview');
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                video.srcObject = stream;
+            })
+            .catch(function(error) {
+                console.error("Error accessing camera:", error);
+            });
+    }
+});
+
+function enableGestures() {
+    initGestureController();
+    document.querySelector('.gesture-overlay').style.display = 'none';
+}
+</script>
+{% endblock %} 

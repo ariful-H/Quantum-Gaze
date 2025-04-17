@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Quantum Gaze - Game Arcade{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h1 class="display-4">Quantum Gaze Game Arcade</h1>
+            <p class="lead">Control games with your hand gestures</p>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">Camera Feed</h3>
+                </div>
+                <div class="card-body p-0">
+                    <div id="camera-container" class="d-flex justify-content-center align-items-center bg-dark" style="height: 400px;">
+                        <video id="video" class="w-100 h-100" autoplay style="max-height: 400px; object-fit: cover;"></video>
+                        <canvas id="canvas" class="position-absolute" style="max-height: 400px;"></canvas>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button id="start-camera" class="btn btn-success">Start Camera</button>
+                        <button id="stop-camera" class="btn btn-danger" disabled>Stop Camera</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card game-card shadow h-100">
+                <img src="/static/img/game-snake.jpg" class="card-img-top" alt="Snake Game">
+                <div class="card-body">
+                    <h5 class="card-title">Snake Game</h5>
+                    <p class="card-text">Control the snake with hand gestures. Collect food and grow as long as possible!</p>
+                    <a href="#" class="btn btn-primary start-game" data-game="snake">Play Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card game-card shadow h-100">
+                <img src="/static/img/game-tetris.jpg" class="card-img-top" alt="Tetris">
+                <div class="card-body">
+                    <h5 class="card-title">Tetris</h5>
+                    <p class="card-text">The classic block-stacking game with gesture controls. Arrange falling blocks to clear lines!</p>
+                    <a href="#" class="btn btn-primary start-game" data-game="tetris">Play Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card game-card shadow h-100">
+                <img src="/static/img/game-pong.jpg" class="card-img-top" alt="Pong">
+                <div class="card-body">
+                    <h5 class="card-title">Pong</h5>
+                    <p class="card-text">Simple but addictive paddle game. Use hand movements to control your paddle!</p>
+                    <a href="#" class="btn btn-primary start-game" data-game="pong">Play Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="gameModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="gameModalLabel">Game</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="game-container" class="bg-dark">
+                    <!-- Game canvas will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/games.js"></script>
+{% endblock %} 
